@@ -42,10 +42,16 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (2) / COMPLETED: Replace all View declarations with Butterknife annotations
+
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_STORAGE_PERMISSION = 1;
+
+    private static final String FILE_PROVIDER_AUTHORITY = "com.example.android.fileprovider";
+
     @BindView(R.id.image_view) ImageView mImageView;
 
     @BindView(R.id.emojify_button) Button mEmojifyButton;
@@ -54,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.clear_button) FloatingActionButton mClearFab;
 
     @BindView(R.id.title_text_view) TextView mTitleTextView;
-
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_STORAGE_PERMISSION = 1;
-
-    private static final String FILE_PROVIDER_AUTHORITY = "com.example.android.fileprovider";
 
     private String mTempPhotoPath;
 
@@ -73,22 +74,15 @@ public class MainActivity extends AppCompatActivity {
         // Bind the views
         ButterKnife.bind(this);
 
-        // TODO (3) / COMPLETED: Replace the findViewById calls with the Butterknife data binding
-/*        // Bind the views
-        mImageView = (ImageView) findViewById(R.id.image_view);
-        mEmojifyButton = (Button) findViewById(R.id.emojify_button);
-        mShareFab = (FloatingActionButton) findViewById(R.id.share_button);
-        mSaveFab = (FloatingActionButton) findViewById(R.id.save_button);
-        mClearFab = (FloatingActionButton) findViewById(R.id.clear_button);
-        mTitleTextView = (TextView) findViewById(R.id.title_text_view);*/
+        // TODO (2) / COMPLETED: Set up Timber
+        Timber.plant(new Timber.DebugTree());
     }
 
     /**
      * OnClick method for "Emojify Me!" Button. Launches the camera app.
-     *
-     * @param view The emojify me button.
      */
-    public void emojifyMe(View view) {
+    @OnClick(R.id.emojify_button)
+    public void emojifyMe() {
         // Check for the external storage permission
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -199,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // TODO (4) / COMPLETED: Replace OnClick methods with Butterknife annotations for OnClicks
+
     /**
      * OnClick method for the save button.
      */
